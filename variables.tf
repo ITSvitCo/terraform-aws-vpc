@@ -66,3 +66,7 @@ variable "assign_generated_ipv6_cidr_block" {
   description = "Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC"
   default     = "false"
 }
+
+variable "enabled" {
+  default = "true"
+}

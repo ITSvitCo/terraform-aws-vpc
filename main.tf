@@ -6,9 +6,11 @@ module "label" {
   delimiter  = "${var.delimiter}"
   attributes = "${var.attributes}"
   tags       = "${var.tags}"
+  enabled    = "${var.enabled}"
 }
 
 resource "aws_vpc" "default" {
+  count                            = "${var.enabled == "true" ? 1 : 0}"
   cidr_block                       = "${var.cidr_block}"
   instance_tenancy                 = "${var.instance_tenancy}"
   enable_dns_hostnames             = "${var.enable_dns_hostnames}"
@@ -20,6 +22,7 @@ resource "aws_vpc" "default" {
 }
 
 resource "aws_internet_gateway" "default" {
+  count  = "${var.enabled == "true" ? 1 : 0}"
   vpc_id = "${aws_vpc.default.id}"
   tags   = "${module.label.tags}"
 }
